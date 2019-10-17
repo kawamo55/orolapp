@@ -1,0 +1,22 @@
+{
+  "name": "orolapp",
+  "version": "1.0.0",
+  "description": "olora view location application",
+  "main": "app.js",
+  "scripts": {
+    "test": "apptest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawamo55/wacker-orolapp.git"
+  },
+  "keywords": [
+    "orola"
+  ],
+  "author": "wacker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kawamo55/wacker-orolapp/issues"
+  },
+  "homepage": "https://github.com/kawamo55/wacker-orolapp#readme"
+}
