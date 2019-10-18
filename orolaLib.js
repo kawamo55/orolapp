@@ -23,9 +23,11 @@ var econst_val = {
 // d => Date
 var SE_dist = function(d) {
 	var dst=0.0,rad;
-	rad = 2 * econst_val.pi * d / 365.24
+	var dd = (d.getTime() - perihelion().getTime())/(1000 * 3600 * 24);
+	rad = 2 * econst_val.pi * d / 365.24;
+	dst = (1+Math.cos(rad+econst_val.pi)) * 2498320 + 147101680;
 
-	return dst
+	return dst;
 }
 //
 
