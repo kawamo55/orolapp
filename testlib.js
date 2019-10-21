@@ -39,3 +39,6 @@ console.log("View Angle degree="+va_deg.toString());
 
 var SEDist = t.SE_dist(new Date('2019/10/20'));
 console.log("Distance on 2019.10.20: "+SEDist.toString());
+
+var NightAngle = t.getNightAngle(new Date('2019/10/19'), 10);
+console.log("Start: "+NightAngle.ST.toString()+" End: "+NightAngle.ED.toString());

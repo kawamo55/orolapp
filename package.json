@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/kawamo55/wacker-orolapp#readme",
   "dependencies": {
+    "date-utils": "^1.2.21",
     "ejs": "^2.7.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "request": "^2.88.0"
   }
 }

@@ -15,11 +15,11 @@ var econst_val = {
 	mgnorth_deg:	{ N:80.6, E:286.9 },
 	mgsouth_deg:	{ S:80.6, E:106.9 },
 	e_radius:	6378100,
-	orola_gl:	150000
+	orola_gl:	150000,
+	e_axis:		23.4
 }
 
 // 太陽地球館距離
-// 現在未実装
 // d => Date
 var SE_dist = function(d) {
 	var dst=0.0,rad;
@@ -32,10 +32,19 @@ var SE_dist = function(d) {
 //
 
 // 日付,緯度夜間時間算出
-// 現在未実装
-// d => Date,agl => +North, -South (degree)
-var getNightTime = function(d,agl) {
-	var st,ed;
+// d => Date,agl => +North 90, -South -90 (degree)
+var getNightAngle = function(d,agl) {
+	var st,ed,ragl,eagl;
+	ragl = deg2rad(Math.abs(90-agl));
+	dtg = new Date('2018-12-22');
+	dtg = (dtg.getTime() - d.getTime()) / (1000 * 3600 * 24);
+	eagl = deg2rad(econst_val.e_axis) * Math.cos(dtg * econst_val.pi / (365.25/2));
+	var asr = econst_val.e_radius * Math.sin(ragl); // その緯度の半径
+	var acr = econst_val.e_radius * Math.cos(ragl);
+	var tnr = acr * Math.cos(eagl);
+	var agl = Math.atan(tnr / asr);
+	st = -90 - rad2deg(agl);
+	ed = 90 + rad2deg(agl);
 
 	return {ST:st, ED:ed}
 } 
@@ -119,7 +128,7 @@ var rad2deg = function(rad) {
 
 exports.econst_val = econst_val;
 exports.SE_dist = SE_dist;
-exports.getNightTime = getNightTime;
+exports.getNightAngle = getNightAngle;
 exports.perihelion = perihelion;
 exports.north_oangle60 = north_oangle60;
 exports.north_oangle70 = north_oangle70;
