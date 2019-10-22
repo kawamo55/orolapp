@@ -22,8 +22,11 @@
   <script>
     var img = document.getElementById('wmap');
     img.onclick = function(e){
+// 	この部分の9と198という数字は本来HTMLで配置された要素の高さと幅から
+//	計算すべきものなので決して真似をしてはいけない！！
 	var xx = e.pageX - 9;
 	var yy = e.pageY - 198;
+//	ここまで
 	var x = xx * 360 / 639 - 320; // -40 ->  320
 	var y = 80 - yy * 160 / 423; // +80 -> -80
 	document.forms['req'].lat.value = x < 0 ? x + 360 : x;
