@@ -1,7 +1,6 @@
 //
 // Project template
 //
-// api_key=dxnVkKSN7rAUvcIsHlgnAD5KUMIOLc7ydh6M6Xnc
 // 
 
 var express = require("express");
@@ -52,7 +51,7 @@ app.get("/result",function(req, res, next) {
 
 	if (mess == "") {
 		var url = "https://api.nasa.gov/DONKI/CME";
-		var key = "&api_key=dxnVkKSN7rAUvcIsHlgnAD5KUMIOLc7ydh6M6Xnc"
+		var key = "&api_key=your_apikey!!"
 
 		var vd = new Date(vdate);
 		var edd = "&endDate="+vd.toFormat("YYYY-MM-DD");
