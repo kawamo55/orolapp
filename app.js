@@ -33,19 +33,20 @@ app.get("/result",function(req, res, next) {
 	var vdate = req.query.ViewDate;
 	var vlat = req.query.lat;
 	var vlon = req.query.lon;
+	if (vlon < 0) vlon = 360 - vlon;
 	var mess = "";
 
 	// 高度から見た見える位置の範囲
 	var vr=olib.orola_Va();
 
 	// 南半球の場合
-	if (vlon < 0)  {
-		var s60 = olib.south_oangle60(vlat);
-		if ((s60.S - olib.rad2deg(vr)) > vlon)
+	if (vlat < 0)  {
+		var s60 = olib.south_oangle60(vlon);
+		if ((s60.S - olib.rad2deg(vr)) >(-1 * vlat))
 			mess = "そこからは見えません";
 	} else {
-		var n60 = olib.north_oangle60(vlat);
-		if (n60 - olib.rad2deg(vr) > vlon)
+		var n60 = olib.north_oangle60(vlon);
+		if ((n60.N - olib.rad2deg(vr)) > vlat)
 			mess = "そこからは見えません";
 	}
 
@@ -56,7 +57,6 @@ app.get("/result",function(req, res, next) {
 		var vd = new Date(vdate);
 		var edd = "&endDate="+vd.toFormat("YYYY-MM-DD");
 		var dst = olib.SE_dist(vd);
-		console.log(dst.toString());
 		// 最低速度を100km/sとする。
 		var dw = Math.floor((dst / 100) / (24 * 3600)+0.5);
 		var sta = "?startDate="+vd.remove({"days": dw}).toFormat("YYYY-MM-DD");

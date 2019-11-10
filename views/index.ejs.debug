@@ -12,6 +12,7 @@
   </script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
   <style>
+</head>
 <body>
   <h1>オーロラ出現予測</h1>
   <form action="/result" method="get">
@@ -32,6 +33,5 @@
     zoom: 5
   });
   </script>
-</head>
 </body>
 </html>
