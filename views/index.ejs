@@ -14,10 +14,10 @@
 <body>
   <h1>オーロラ出現予測</h1>
   <form name="req" action="/result" method="get" onsubmit="return checkparam();">
-  <p>オーロラを見たい日:<select name="ViewDate"><%- opdates %></select></p>
-  <input type="text" name="lat" value="">
-  <input type="text" name="lon" value="">
-  <input type="submit" value="GO Check!!">
+  <p>オーロラを見たい日:<select name="ViewDate"><%- opdates %></select><br />
+  lat: <input type="text" name="lat" value="">
+  lon: <input type="text" name="lon" value=""><br />
+  <input type="submit" value="GO Check!!"></p>
   </form>
   <p>見たい場所を下の地図でクリックしてください。</p>
   <div id='map1' style='width: 400px; height: 300px;'></div>
