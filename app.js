@@ -1,6 +1,7 @@
 //
 // Project template
-//
+// look in vim setting 
+// se tabstop=4
 // 
 
 var express = require("express");
@@ -9,6 +10,28 @@ var https = require('https');
 var htreq = require('request');
 var olib = require('./orolaLib.js');
 require('date-utils');
+
+function ApiReq(prm) {
+	return new Promise(function (reso,reje) {
+		htreq(prm,function (error, resp, body) {
+			if (!error && resp.statusCode == 200) {
+				reso(body);
+			} else {
+				reje(null);
+			}
+		});
+	});
+}
+
+async function readbody(url,sta,edd,key) {
+// console.log(url+sta+edd+key);
+	var opt = {
+		url: url+sta+edd+key,
+		method: 'GET',
+		json: true
+	}
+	return await ApiReq(opt);
+}
 
 app.use(express.static('public'));
 
@@ -51,7 +74,7 @@ app.get("/result",function(req, res, next) {
 
 	if (mess == "") {
 		var url = "https://api.nasa.gov/DONKI/CME";
-		var key = "&api_key=your_apikey!!"
+		var key = "&api_key=dxnVkKSN7rAUvcIsHlgnAD5KUMIOLc7ydh6M6Xnc"
 
 		var vd = new Date(vdate);
 		var edd = "&endDate="+vd.toFormat("YYYY-MM-DD");
@@ -60,14 +83,10 @@ app.get("/result",function(req, res, next) {
 		var dw = Math.floor((dst / 100) / (24 * 3600)+0.5);
 		var sta = "?startDate="+vd.remove({"days": dw}).toFormat("YYYY-MM-DD");
 		mess = "出るかも！？";
-		var opt = {
-			url: url+sta+edd+key,
-			method: 'GET',
-			json: true
-		}
-		htreq(opt,function(error, response, body) {
-			console.log(body);
-		});
+		var body = readbody(url,sta,edd,key);
+		if (body != null) console.log(body);
+			else		console.log('request error');
+		if (body.length==0) mess="ここ数日は出ません。";
 	}
 
 	res.render("result.ejs", {Resp: mess} );
